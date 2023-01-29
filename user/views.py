@@ -24,12 +24,10 @@ from .serializers import UserSerializers, UserLoginSerializer
 #
 
 class Register(APIView):
-    permission_classes = [AllowAny]
-
     def post(self, request):
         serializer = UserSerializers(data=request.data)
 
-        if serializer.is_valid(raise_exception=True):
+        if serializer.is_valid():
             serializer.save()
             return Response({"message": "User registered successfully"})
 
