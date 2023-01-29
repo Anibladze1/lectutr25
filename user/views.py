@@ -8,21 +8,6 @@ from rest_framework.views import APIView
 from .serializers import UserSerializers, UserLoginSerializer
 
 
-# @api_view(['POST'])
-# def register(request):
-#     if request.user.is_authenticated:
-#         return Response(status=status.HTTP_400_BAD_REQUEST)
-#
-#     serializer = UserSerializers(data=request.data)
-#
-#     if serializer.is_valid():
-#         serializer.save()
-#
-#         return Response(status=status.HTTP_201_CREATED)
-#
-#     return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-#
-
 class Register(APIView):
     def post(self, request):
         serializer = UserSerializers(data=request.data)
@@ -30,6 +15,8 @@ class Register(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response({"message": "User registered successfully"})
+
+        return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class Login(APIView):
